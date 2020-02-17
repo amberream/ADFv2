@@ -7,6 +7,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,9 +16,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView mRecyclerView;
+    WordViewModel mWordViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +40,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mRecyclerView = findViewById(R.id.recyclerview);
-        mRecyclerView.setAdapter(new WordListAdapter(this));
+        final WordListAdapter adapter = new WordListAdapter(this);
+        mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mWordViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(WordViewModel.class);
+        mWordViewModel.getAllWords().observe(this, new Observer<List<Word>>() {
+            @Override
+            public void onChanged(List<Word> words) {
+                // update the cached copy of words in the adapter
+                adapter.setWords(words);
+            }
+        });
     }
 
     @Override
