@@ -16,8 +16,6 @@ public class Word {
     @ColumnInfo (name = "word")
     private String mWord;
 
-    private int mKey;
-
     public Word(@NonNull String word)
     {
         mWord = word;

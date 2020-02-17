@@ -19,10 +19,8 @@ public abstract class WordRoomDatabase extends RoomDatabase {
      */
     private static WordRoomDatabase mInstance;
 
-    private WordRoomDatabase()
-    {
-
-    }
+    // This actually caused a build error!!
+//    private WordRoomDatabase(){}
 
     public static WordRoomDatabase getInstance(final Context context)
     {
