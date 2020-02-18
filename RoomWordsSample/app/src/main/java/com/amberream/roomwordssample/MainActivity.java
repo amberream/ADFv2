@@ -1,10 +1,12 @@
 package com.amberream.roomwordssample;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
@@ -15,10 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
     RecyclerView mRecyclerView;
     WordViewModel mWordViewModel;
@@ -34,8 +39,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this, NewWordActivity.class);
+                startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -52,6 +59,20 @@ public class MainActivity extends AppCompatActivity {
                 adapter.setWords(words);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK)
+        {
+            String word = data.getStringExtra(NewWordActivity.EXTRA_REPLY);
+            mWordViewModel.insert(new Word(word));
+        }
+        else
+        {
+            Toast.makeText(this, R.string.empty_not_saved, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

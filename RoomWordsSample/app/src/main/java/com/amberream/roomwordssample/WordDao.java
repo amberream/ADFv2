@@ -3,6 +3,7 @@ package com.amberream.roomwordssample;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public interface WordDao {
     /*
     There are also @Delete and @Update annotations for deleting and updating a row
      */
-    @Insert
+    @Insert (onConflict = OnConflictStrategy.IGNORE)
     public abstract void insert (Word word);
 
     /*
