@@ -31,4 +31,9 @@ public interface WordDao {
 
     @Query("SELECT * FROM word_table ORDER BY word ASC")
     public abstract LiveData<List<Word>> getAllWords();
+
+    // No need to return LiveData since this method will be called explicitly when needed
+    // This exists just to see if the db is populated
+    @Query("SELECT * FROM word_table LIMIT 1")
+    public abstract Word [] getAnyWord();
 }

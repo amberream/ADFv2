@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_deleteall)
+        {
+            Toast.makeText(this, "Deleting all data", Toast.LENGTH_LONG).show();
+            mWordViewModel.deleteAllWords();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
