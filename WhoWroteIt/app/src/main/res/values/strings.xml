@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WhoWroteIt</string>
+    <string name="instructions">Enter a book name to find out who wrote the book!</string>
+    <string name="query_hint">Book Title</string>
+</resources>
