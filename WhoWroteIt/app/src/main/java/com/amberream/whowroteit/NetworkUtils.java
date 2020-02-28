@@ -57,7 +57,7 @@ public class NetworkUtils {
             bookJson = buffer.toString();
         }
         catch (Exception e) {
-            e.printStackTrace();
+            Log.e(LOG_TAG, e.getMessage(), e);
         }
         finally
         {
@@ -70,7 +70,7 @@ public class NetworkUtils {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.e(LOG_TAG, e.getMessage(), e);
                 }
             }
         }
