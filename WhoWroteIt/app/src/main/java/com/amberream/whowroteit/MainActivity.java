@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void search(View view) {
         String query = editTextQuery.getText().toString();
+        if (query.isEmpty())
+        {
+            Toast.makeText(this,"Enter search terms",Toast.LENGTH_LONG).show();
+            return;
+        }
         // Do the search off the main thread
         new FetchBookTask(textViewAuthor, textViewTitle).execute(query);
     }

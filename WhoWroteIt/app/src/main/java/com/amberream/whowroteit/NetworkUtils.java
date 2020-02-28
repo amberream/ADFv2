@@ -74,8 +74,10 @@ public class NetworkUtils {
                 }
             }
         }
-
-        Log.d(LOG_TAG, bookJson);
+        if (bookJson != null) {
+            // this could be null if we caught an exception above before it got set (i.e. search on space char)
+            Log.d(LOG_TAG, bookJson);
+        }
         return bookJson;
     }
 }
