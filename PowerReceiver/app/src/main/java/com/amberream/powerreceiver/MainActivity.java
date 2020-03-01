@@ -5,8 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
+
+    // The action must provide the app's package name syntax (this matches BuildConfig.APPLICATION_ID)
+    // It's common practice to prepend the package name to the action name
+    private static final String ACTION_CUSTOM_BROADCAST = BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST";
 
     CustomReceiver customReceiver = new CustomReceiver();
 
@@ -25,5 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         unregisterReceiver(customReceiver);
         super.onDestroy();
+    }
+
+    public void sendCustomBroadcast(View view) {
+
     }
 }
