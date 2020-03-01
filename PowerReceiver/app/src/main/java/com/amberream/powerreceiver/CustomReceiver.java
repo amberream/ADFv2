@@ -23,6 +23,10 @@ public class CustomReceiver extends BroadcastReceiver {
             {
                 Toast.makeText(context, R.string.power_disconnected, Toast.LENGTH_SHORT).show();
             }
+            else if (action.equals(MainActivity.ACTION_CUSTOM_BROADCAST))
+            {
+                Toast.makeText(context, R.string.custom_broadcast_received, Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

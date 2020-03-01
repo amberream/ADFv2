@@ -1,6 +1,7 @@
 package com.amberream.powerreceiver;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
 
     // The action must provide the app's package name syntax (this matches BuildConfig.APPLICATION_ID)
     // It's common practice to prepend the package name to the action name
-    private static final String ACTION_CUSTOM_BROADCAST = BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST";
+    static final String ACTION_CUSTOM_BROADCAST = BuildConfig.APPLICATION_ID + ".ACTION_CUSTOM_BROADCAST";
 
     CustomReceiver customReceiver = new CustomReceiver();
 
@@ -24,15 +25,18 @@ public class MainActivity extends AppCompatActivity {
         intentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
         intentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         registerReceiver(customReceiver, intentFilter);
+        LocalBroadcastManager.getInstance(this).registerReceiver(customReceiver, new IntentFilter(ACTION_CUSTOM_BROADCAST));
     }
 
     @Override
     protected void onDestroy() {
         unregisterReceiver(customReceiver);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(customReceiver);
         super.onDestroy();
     }
 
     public void sendCustomBroadcast(View view) {
-
+        Intent customBroadcastIntent = new Intent(ACTION_CUSTOM_BROADCAST);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(customBroadcastIntent);
     }
 }
