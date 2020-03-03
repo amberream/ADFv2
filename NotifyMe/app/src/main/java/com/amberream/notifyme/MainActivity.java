@@ -8,6 +8,8 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
     NotificationManager notificationManager;
 
     Button buttonNotify;
+    Button buttonUpdate;
+    Button buttonCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         buttonNotify = findViewById(R.id.button_notify);
+        buttonUpdate = findViewById(R.id.button_update);
+        buttonCancel = findViewById(R.id.button_cancel);
+        setNotificationButtonState(true, false, false);
+
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         createNotificationChannel();
     }
@@ -70,5 +78,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendNotification(View view) {
         notificationManager.notify(NOTIFICATION_ID, getNotificationBuilder().build());
+        setNotificationButtonState(false, true, true);
+    }
+
+    public void updateNotification(View view) {
+        NotificationCompat.Builder builder = getNotificationBuilder();
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.mascot_1);
+        builder.setStyle(new NotificationCompat.BigPictureStyle().bigPicture(bitmap).setBigContentTitle(getString(R.string.notification_updated)));
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+        setNotificationButtonState(false, false, true);
+    }
+
+    public void cancelNotification(View view) {
+        notificationManager.cancel(NOTIFICATION_ID);
+        setNotificationButtonState(true, false, false);
+    }
+
+    private void setNotificationButtonState(boolean notify, boolean update, boolean cancel)
+    {
+        buttonNotify.setEnabled(notify);
+        buttonUpdate.setEnabled(update);
+        buttonCancel.setEnabled(cancel);
     }
 }
