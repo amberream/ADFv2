@@ -6,4 +6,5 @@
     <string name="update_me">Update Me!</string>
     <string name="cancel_me">Cancel Me!</string>
     <string name="notification_updated">Notification Updated!</string>
+    <string name="update_notification">Update Notification</string>
 </resources>
