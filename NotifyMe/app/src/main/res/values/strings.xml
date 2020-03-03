@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Notify Me</string>
+    <string name="notification_from_mascot">Notification from Mascot</string>
+    <string name="mascot_notification">Mascot Notification</string>
+</resources>
