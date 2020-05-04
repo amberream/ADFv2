@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Order Activity</string>
+    <string name="donut">Donut</string>
+    <string name="froyo">Froyo</string>
+    <string name="ice_cream">Ice Cream</string>
+    <string name="title_activity_froyo">FroyoActivity</string>
+    <string name="title_activity_ice_cream">IceCreamActivity</string>
+    <string name="title_activity_donut">DonutActivity</string>
+</resources>
